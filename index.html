@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SI-BARA SMAN 1 Magetan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f8fafc;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(79, 172, 254, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 242, 254, 0.05) 0px, transparent 50%);
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-focus {
+            transition: all 0.3s ease;
+        }
+        .input-focus:focus {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.15);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.23);
+        }
+
+        /* Status Animations */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .report-card {
+            animation: slideIn 0.4s ease forwards;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- Header Section with Side Logo -->
+        <header class="flex flex-col md:flex-row items-center justify-center gap-6 mb-12">
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                <img src="https://smasa-magetan.sch.id/wp-content/uploads/2023/06/LOGO-SMA-NEGERI-1-MAGETAN-258x300.png" 
+                     alt="Logo SMAN 1 Magetan" 
+                     class="relative h-24 md:h-28 drop-shadow-lg"
+                     onerror="this.src='https://via.placeholder.com/100?text=SMASA'">
+            </div>
+            <div class="text-center md:text-left">
+                <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+                    <span class="gradient-text">SI-BARA</span>
+                </h1>
+                <p class="text-slate-500 font-semibold text-lg mt-1">Sistem Informasi Barang SMASA</p>
+                <div class="flex items-center justify-center md:justify-start gap-2 mt-2">
+                    <span class="h-1 w-12 bg-blue-500 rounded-full"></span>
+                    <span class="text-xs uppercase tracking-[0.2em] text-slate-400 font-bold">SMAN 1 Magetan</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Form Section -->
+            <div class="lg:col-span-5 sticky top-10">
+                <div class="glass-card rounded-[2rem] p-8">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="bg-blue-600 p-2.5 rounded-xl shadow-lg shadow-blue-200">
+                            <i class="fas fa-plus text-white text-sm"></i>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-800">Laporan Baru</h2>
+                    </div>
+                    
+                    <form id="itemForm" class="space-y-5">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-bold text-slate-700 ml-1">Jenis Layanan</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <label class="relative cursor-pointer group">
+                                    <input type="radio" name="category" value="Hilang" class="hidden peer" checked>
+                                    <div class="flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-slate-100 bg-white peer-checked:border-red-500 peer-checked:bg-red-50/50 transition-all duration-300">
+                                        <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                                            <i class="fas fa-search text-red-600"></i>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase text-slate-400 peer-checked:text-red-600">Barang Hilang</span>
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer group">
+                                    <input type="radio" name="category" value="Titip" class="hidden peer">
+                                    <div class="flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-slate-100 bg-white peer-checked:border-blue-500 peer-checked:bg-blue-50/50 transition-all duration-300">
+                                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                                            <i class="fas fa-box-open text-blue-600"></i>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase text-slate-400 peer-checked:text-blue-600">Titip Barang</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Nama Barang</label>
+                                <input type="text" id="itemName" required placeholder="Apa nama barangnya?" 
+                                       class="w-full px-5 py-3.5 rounded-2xl border border-slate-200 bg-white/50 focus:bg-white outline-none input-focus text-slate-700 placeholder:text-slate-400">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Nama Pemilik</label>
+                                    <input type="text" id="ownerName" required placeholder="Nama lengkap" 
+                                           class="w-full px-5 py-3.5 rounded-2xl border border-slate-200 bg-white/50 focus:bg-white outline-none input-focus text-slate-700">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Kelas</label>
+                                    <select id="ownerClass" required class="w-full px-5 py-3.5 rounded-2xl border border-slate-200 bg-white/50 focus:bg-white outline-none input-focus text-slate-700">
+                                        <option value="">Pilih Kelas</option>
+                                        <optgroup label="Kelas X">
+                                            <option>X-1</option><option>X-2</option><option>X-3</option><option>X-4</option><option>X-5</option><option>X-6</option><option>X-7</option><option>X-8</option><option>X-9</option><option>X-10</option>
+                                        </optgroup>
+                                        <optgroup label="Kelas XI">
+                                            <option>XI-1</option><option>XI-2</option><option>XI-3</option><option>XI-4</option><option>XI-5</option><option>XI-6</option><option>XI-7</option><option>XI-8</option><option>XI-9</option><option>XI-10</option>
+                                        </optgroup>
+                                        <optgroup label="Kelas XII">
+                                            <option>XII-MIPA 1</option><option>XII-MIPA 2</option><option>XII-MIPA 3</option><option>XII-MIPA 4</option><option>XII-IPS 1</option><option>XII-IPS 2</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Lokasi</label>
+                                    <input type="text" id="location" required placeholder="Dimana?" 
+                                           class="w-full px-5 py-3.5 rounded-2xl border border-slate-200 bg-white/50 focus:bg-white outline-none input-focus text-slate-700">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Waktu</label>
+                                    <input type="datetime-local" id="dateTime" required 
+                                           class="w-full px-5 py-3.5 rounded-2xl border border-slate-200 bg-white/50 focus:bg-white outline-none input-focus text-slate-700">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Deskripsi Tambahan</label>
+                                <textarea id="description" rows="3" required placeholder="Ciri-ciri unik atau pesan tambahan..." 
+                                          class="w-full px-5 py-3.5 rounded-2xl border border-slate-200 bg-white/50 focus:bg-white outline-none input-focus text-slate-700 resize-none"></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full btn-primary text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 group">
+                            <span>Kirim Laporan</span>
+                            <i class="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Display Section -->
+            <div class="lg:col-span-7">
+                <div class="flex items-center justify-between mb-6 px-2">
+                    <div class="flex items-center gap-3">
+                        <h2 class="text-2xl font-extrabold text-slate-800">Daftar Aktif</h2>
+                        <span id="counter" class="bg-blue-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg">0</span>
+                    </div>
+                    <div class="flex gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                        Data Real-time
+                    </div>
+                </div>
+
+                <div id="emptyState" class="bg-slate-100/50 border-2 border-dashed border-slate-200 rounded-[2rem] py-24 text-center">
+                    <div class="bg-white w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+                        <i class="fas fa-ghost text-slate-200 text-4xl"></i>
+                    </div>
+                    <p class="text-slate-400 font-medium italic">Belum ada data barang di SMASA hari ini.</p>
+                </div>
+
+                <div id="itemsContainer" class="space-y-5 hidden">
+                    <!-- Cards will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-20 pb-10 text-center">
+            <div class="flex items-center justify-center gap-4 mb-4 opacity-30 grayscale">
+                <img src="https://smasa-magetan.sch.id/wp-content/uploads/2023/06/LOGO-SMA-NEGERI-1-MAGETAN-258x300.png" class="h-8">
+            </div>
+            <p class="text-slate-400 text-xs font-medium uppercase tracking-widest">&copy; 2024 Tim IT SMASA Magetan</p>
+        </footer>
+    </div>
+
+    <!-- Notification -->
+    <div id="toast" class="fixed bottom-10 right-10 translate-y-20 opacity-0 transition-all duration-500 z-50">
+        <div class="bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 border border-slate-700">
+            <div id="toastIcon" class="w-8 h-8 rounded-full flex items-center justify-center">
+                <i class="fas fa-check text-xs"></i>
+            </div>
+            <p id="toastMessage" class="text-sm font-bold"></p>
+        </div>
+    </div>
+
+    <script>
+        const itemForm = document.getElementById('itemForm');
+        const itemsContainer = document.getElementById('itemsContainer');
+        const emptyState = document.getElementById('emptyState');
+        const counterLabel = document.getElementById('counter');
+        const toast = document.getElementById('toast');
+
+        let reports = [];
+
+        // Inisialisasi waktu saat ini
+        function setNow() {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('dateTime').value = now.toISOString().slice(0, 16);
+        }
+        setNow();
+
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby9--mc2ELWVlCmuSLcHL5qohibJJ-oAsygXH1YVwc723fRsQs3BTNkoyV-2XUcm98NEQ/exec";
+
+itemForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const data = {
+        jenis_layanan: document.querySelector('input[name="category"]:checked').value,
+        nama_barang: document.getElementById('itemName').value,
+        nama_pemilik: document.getElementById('ownerName').value,
+        kelas: document.getElementById('ownerClass').value,
+        lokasi: document.getElementById('location').value,
+        waktu: document.getElementById('dateTime').value,
+        deskripsi_tambahan: document.getElementById('description').value
+    };
+
+    try {
+        const response = await fetch(WEB_APP_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (result.status === "success") {
+            alert("✅ Data berhasil dikirim ke Spreadsheet!");
+            itemForm.reset();
+            setNow();
+        } else {
+            alert("❌ Gagal menyimpan: " + result.message);
+        }
+
+    } catch (error) {
+        alert("❌ Tidak bisa terhubung ke server Apps Script");
+        console.error(error);
+    }
+});
+
+
+            
+            
+
+        function updateUI() {
+            if (reports.length === 0) {
+                emptyState.classList.remove('hidden');
+                itemsContainer.classList.add('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                itemsContainer.classList.remove('hidden');
+            }
+
+            counterLabel.innerText = reports.length;
+
+            itemsContainer.innerHTML = reports.map((report, index) => `
+                <div class="report-card bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:scale-[1.01] transition-all duration-300">
+                    <div class="flex flex-col md:flex-row justify-between gap-4">
+                        <div class="flex gap-5">
+                            <div class="flex-shrink-0">
+                                <div class="w-14 h-14 rounded-2xl ${report.category === 'Hilang' ? 'bg-red-50 text-red-500' : 'bg-blue-50 text-blue-500'} flex items-center justify-center text-xl shadow-inner">
+                                    <i class="fas ${report.category === 'Hilang' ? 'fa-search' : 'fa-box'}"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded ${report.category === 'Hilang' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'}">
+                                        ${report.category === 'Hilang' ? 'HILANG' : 'TITIPAN'}
+                                    </span>
+                                    <span class="text-[10px] text-slate-400 font-bold">${formatTime(report.dateTime)}</span>
+                                </div>
+                                <h3 class="text-xl font-extrabold text-slate-800">${report.itemName}</h3>
+                                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-sm">
+                                    <div class="flex items-center gap-1.5 font-semibold text-slate-600">
+                                        <i class="fas fa-user text-[10px] text-slate-300"></i>
+                                        ${report.ownerName} <span class="text-slate-300 font-normal">(${report.ownerClass})</span>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 font-semibold text-slate-600">
+                                        <i class="fas fa-location-arrow text-[10px] text-slate-300"></i>
+                                        ${report.location}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex md:flex-col justify-between items-end">
+                            <button onclick="deleteReport(${report.id})" class="p-2 text-slate-300 hover:text-red-500 transition-colors">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                            <span class="text-[10px] font-bold text-slate-300 uppercase tracking-tighter">${formatDate(report.dateTime)}</span>
+                        </div>
+                    </div>
+                    <div class="mt-5 p-4 bg-slate-50 rounded-2xl border border-slate-100/50">
+                        <p class="text-xs text-slate-400 font-black uppercase tracking-widest mb-1.5">Keterangan Laporan</p>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium italic">"${report.description}"</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deleteReport(id) {
+            reports = reports.filter(r => r.id !== id);
+            updateUI();
+            showToast("Laporan telah dihapus", "error");
+        }
+
+        function formatDate(dtStr) {
+            const date = new Date(dtStr);
+            return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long' });
+        }
+
+        function formatTime(dtStr) {
+            const date = new Date(dtStr);
+            return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function showToast(message, type) {
+            const toastMsg = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+            toastMsg.innerText = message;
+            
+            if(type === "success") {
+                toastIcon.className = "w-8 h-8 rounded-full flex items-center justify-center bg-green-500 text-white";
+                toastIcon.innerHTML = '<i class="fas fa-check"></i>';
+            } else {
+                toastIcon.className = "w-8 h-8 rounded-full flex items-center justify-center bg-red-500 text-white";
+                toastIcon.innerHTML = '<i class="fas fa-trash"></i>';
+            }
+
+            toast.classList.remove('opacity-0', 'translate-y-20');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-20');
+                toast.classList.remove('opacity-100', 'translate-y-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
